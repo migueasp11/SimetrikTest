@@ -1,6 +1,7 @@
 package com.simetrik.utils;
 
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 
@@ -10,12 +11,12 @@ import java.util.Optional;
 
 public class RestUtil {
 
-    /*public static void sendAndGetResponse(String url) {
-        RestAssured.baseURI  =  url;
+    public static Response sendAndGetResponse(String url) {
+        RestAssured.baseURI = url;
         RequestSpecification request = RestAssured.given();
-        request.
-
-    }*/
+        request.header("Content-Type", "application/json");
+        return request.get();
+    }
 
     public static Optional<Boolean> isBrokenLink(String linkUrl){
         try {

@@ -13,13 +13,17 @@ public class GeneralPage {
         driver.get(url);
     }
     public WebElement getElementByCssSelectorClass (String nameClass, String tag, String position) {
-        return driver.findElement(By.cssSelector(String.format("main.%s %s:nth-of-type(%s)",nameClass,tag,position)));
+        return driver.findElement(By.cssSelector(String.format("main.%s > %s:nth-of-type(%s)",nameClass,tag,position)));
     }
 
     // Examples Implement a method to find elements into a webElement.
 
     public WebElement getElementById(String id) {
         return driver.findElement(By.id(id));
+    }
+
+        public WebElement getElementByCssSelector(String cssSelector) {
+        return driver.findElement(By.cssSelector(cssSelector));
     }
 
     public WebElement getElementByXpathLabel(String text) {
