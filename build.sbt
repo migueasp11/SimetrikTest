@@ -19,7 +19,8 @@ libraryDependencies ++= Seq(
   "info.cukes"                        % "cucumber-java8"              % "1.2.5" % "test",
   "info.cukes"                        % "cucumber-junit"              % "1.2.5" % "test",
   "info.cukes"                        % "cucumber-picocontainer"      % "1.2.5" % "test",
-  "com.typesafe"                      % "config"                      % "1.3.0"
+  "com.typesafe"                      % "config"                      % "1.3.0",
+  "io.rest-assured"                   % "rest-assured"                % "5.3.0" % Test
 )
 
 resolvers ++= Seq(

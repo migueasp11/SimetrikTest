@@ -4,14 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class GeneralPage {
     public static WebDriver driver;
 
     public void openPage(String url) {
         driver.get(url);
     }
-    public WebElement getElementByCssSelectorClass (String text, String tag) {
-        return driver.findElement(By.cssSelector("*[class=" + text + "] " + tag));
+    public WebElement getElementByCssSelectorClass (String nameClass, String tag, String position) {
+        return driver.findElement(By.cssSelector(String.format("main.%s %s:nth-of-type(%s)",nameClass,tag,position)));
     }
 
     // Examples Implement a method to find elements into a webElement.
@@ -26,6 +28,10 @@ public class GeneralPage {
 
     public WebElement getElementByXpathHref(String text) {
         return driver.findElement(By.xpath("//href[contains(text(),'" + text + "')]"));
+    }
+
+    public List<WebElement> getElementsByTagA(){
+        return driver.findElements(By.tagName("a"));
     }
 
 }

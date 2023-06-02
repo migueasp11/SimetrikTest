@@ -1,9 +1,15 @@
 package com.simetrik.stepdefs;
 
 import com.simetrik.pages.GeneralPage;
+import com.simetrik.utils.RestUtil;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import cucumber.api.java8.En;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GeneralStepDefinitions implements En {
 
@@ -13,18 +19,24 @@ public class GeneralStepDefinitions implements En {
         Given("^I visit the site$", () -> {
         });
         And("^I get the text of tag \"([^\"]*)\"$", (String tag) -> {
-            String textTag = generalPage.getElementByCssSelectorClass(config.getString("idClasses.mainClass"),tag).getText();
+            String textTag = generalPage.getElementByCssSelectorClass(config.getString("idClasses.mainClass"),tag,"2").getText();
             System.out.println("The text of the tag " + tag + " is: " + textTag);
         });
         Given("^I visit the site with the broken link$", () -> {
             generalPage.openPage(config.getString("urlBrokenLink"));
         });
-        When("^I find a broken link$", () -> {
+        When("^I find broken links$", () -> {
+            List<String> links = generalPage.getElementsByTagA().stream().map(webElement -> {
+                return webElement.getAttribute("href");
+            }).map(link -> {
+                RestUtil.isBrokenLink(link).map(isBrokenLink -> {
+                    System.out.println("Link " + link + "is broken: " + isBrokenLink );
+                    return isBrokenLink;
+                })
+            }).collect(Collectors.toList());
+
         });
-        And("^I click on broken link$", () -> {
-            generalPage.getElementByXpathHref("Broken link found").click();
-        });
-        Then("^I report the information about the broken link$", () -> {
+        Then("^I report the information about broken links$", () -> {
 
         });
 
